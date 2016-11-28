@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sticky Footer Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="sticky-footer.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <!-- Begin page content -->
+    <div class="container">
+      <div class="page-header">
+        <h1>Torrent Client</h1>
+      </div>
+    </div>
+	
+	<center>
+	<form id="download-form" class="form-horizontal" role="form" style="max-width: 90%">
+		<div style="margin-bottom: 25px" class="input-group">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-download-alt"></i></span>
+			<input type="text" placeholder="Torrent/Magnet URI" id="torrentlink" name="torrentlink" class="form-control">
+		</div>
+		<div style="margin-top:10px" class="form-group">
+			<div class="col-sm-12 btn-group">
+				<input type="submit" value="Download" class="btn btn-default">
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#seedModal">Seed</button>
+			</div>
+		</div>
+	</form>
+	</center>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer>
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
