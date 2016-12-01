@@ -11,10 +11,11 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-	
+
+    <title>Torrent Client</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
@@ -85,25 +86,6 @@
 						</tr>
 					  </thead>
 					  <tbody id = "table_body">
-						<tr>
-						  <td>SuperDoc.doc</td>
-						  <td><span class="label label-info">INFO</span>
-						  </td>
-						  <td>PREVIEW.</td>
-						</tr>
-						<tr>
-						  <td>OneChar.txt</td>
-						  <td><span class="label label-success">SUCCESS</span>
-						  </td>
-						  <td>PREVIEW.</td>
-						</tr>
-						<tr>
-						  <td>DOOM.exe</td>
-						  <td><span class="label label-danger">Failed</span>
-						  </td>
-						  <td>PREVIEW.</td>
-						</tr>
-
 					  </tbody>
 					</table>
 				  </div>
@@ -111,6 +93,9 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		AddToList("Something", "Success");
+	</script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
