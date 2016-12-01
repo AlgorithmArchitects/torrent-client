@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -43,12 +46,58 @@
 		</div>
 	</form>
 	</center>
-    <footer class="footer">
-      <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
-      </div>
-    </footer>
 
+	<div class="footer navbar-fixed-bottom">
+		<div class="panel-group bottom0" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="panel panel-primary">
+				<div class="panel-heading" role="tab" id="headingOne" style="cursor: pointer" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				  <h4 class="panel-title">
+									<i class="fa fa-info"></i>&nbsp;&nbsp;Notifications 
+								</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse notifications-scroll-area" role="tabpanel" aria-labelledby="headingOne">
+				  <div class="panel-body ">
+					<table class="table table-striped table-hover table-condensed">
+					  <thead>
+						<tr>
+						  <th>Name</th>
+						  <th>Extension</th>
+						  <th>Preview</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						<tr>
+						  <td>22/11/2014</td>
+						  <td><span class="label label-info">INFO</span>
+						  </td>
+						  <td>Execution started.</td>
+						</tr>
+						<tr>
+						  <td>22/11/2014</td>
+						  <td><span class="label label-success">SUCCESS</span>
+						  </td>
+						  <td>Execution completed.</td>
+						</tr>
+						<tr>
+						  <td>22/11/2014</td>
+						  <td><span class="label label-danger">ERROR</span>
+						  </td>
+						  <td>Execution failed.</td>
+						</tr>
+						<tr>
+						  <td>22/11/2014</td>
+						  <td><span class="label label-info">INFO</span>
+						  </td>
+						  <td>Execution started.</td>
+						</tr>
+
+					  </tbody>
+					</table>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
