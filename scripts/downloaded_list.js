@@ -5,7 +5,7 @@ function AddToList(name, status)
 	var item = {
 		name: name,
 		status: status,
-		preview: "<img id=\"" + count + "\" src=\"#\" alt=\"\" />",
+		preview: "<img id=\"" + count + "\" src=\"assets/images/wait.png\" alt=\"\" />",
 		index: count
 	};
 	
@@ -34,7 +34,7 @@ function BuildHtmlString(item)
 	return "<tr><td>" + item.name + "</td><td><span class=\"label label-info\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 }
 
-function readImage(file, index) {
+function ReadImage(file, index) {//file must be a Blob.
 	var reader = new FileReader();
 
 	reader.onload = function (e) {
