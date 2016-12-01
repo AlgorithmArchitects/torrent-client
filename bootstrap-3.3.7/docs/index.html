@@ -11,8 +11,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Sticky Footer Template for Bootstrap</title>
+	
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -43,11 +42,30 @@
 			<div class="col-sm-12 btn-group">
 				<input type="submit" value="Download" class="btn btn-default">
 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#seedModal">Seed</button>
+				
 			</div>
 		</div>
 	</form>
 	</center>
-
+	<!-- Currently creates a list that can be appended to by using dlist.unshift("NAMEOFDOWNLOAD") 
+			I plan to use something other than Unsorted list, but is a place holder for now
+	-->
+		<ul id="list">
+			<li>List</li>
+		</ul>
+		<script>
+					function fl(){
+					var dlist = ["Download List"];
+					var lstr = "";
+					dlist.unshift("New Download");
+					dlist.forEach(function (item, index, array) {
+						lstr = lstr + "<li>" + item + "</li>";
+					});
+					document.getElementById("list").innerHTML  = lstr;
+					}
+					fl();
+		</script>
+		
 	<div class="footer navbar-fixed-bottom">
 		<div class="panel-group bottom0" id="accordion" role="tablist" aria-multiselectable="true">
 			<div class="panel panel-primary">
