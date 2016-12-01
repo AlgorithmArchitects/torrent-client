@@ -3,7 +3,8 @@
   <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+	<script src="scripts/downloaded_list.js"></script>
+	
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,34 +62,28 @@
 					  <thead>
 						<tr>
 						  <th>Name</th>
-						  <th>Extension</th>
+						  <th>Status</th>
 						  <th>Preview</th>
 						</tr>
 					  </thead>
-					  <tbody>
+					  <tbody id = "table_body">
 						<tr>
-						  <td>22/11/2014</td>
+						  <td>SuperDoc.doc</td>
 						  <td><span class="label label-info">INFO</span>
 						  </td>
-						  <td>Execution started.</td>
+						  <td>PREVIEW.</td>
 						</tr>
 						<tr>
-						  <td>22/11/2014</td>
+						  <td>OneChar.txt</td>
 						  <td><span class="label label-success">SUCCESS</span>
 						  </td>
-						  <td>Execution completed.</td>
+						  <td>PREVIEW.</td>
 						</tr>
 						<tr>
-						  <td>22/11/2014</td>
-						  <td><span class="label label-danger">ERROR</span>
+						  <td>DOOM.exe</td>
+						  <td><span class="label label-danger">Failed</span>
 						  </td>
-						  <td>Execution failed.</td>
-						</tr>
-						<tr>
-						  <td>22/11/2014</td>
-						  <td><span class="label label-info">INFO</span>
-						  </td>
-						  <td>Execution started.</td>
+						  <td>PREVIEW.</td>
 						</tr>
 
 					  </tbody>
@@ -98,7 +93,6 @@
 			</div>
 		</div>
 	</div>
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
