@@ -13,12 +13,12 @@ function downloadTorrent(torrentId){
         AddToList(file, "in progress");
     });
 }
-function AddToList(name, status)
+function AddToList(name, status)//A status of "Failed" will create a red item while a status of "Success" will create a green item.
 {
 	var item = {
 		name: name,
 		status: status,
-		preview: "<img id=\"" + count + "\" src=\"assets/images/wait.png\" alt=\"\" />",
+		preview: "<div id=\"#" + count + "\"><image src=\"assets/images/wait.png\" alt=\"\" style=\"max-height:25px\" /></div>",
 		index: count
 	};
 	items.push(item);
@@ -46,16 +46,20 @@ function BuildHtmlString(item)
 	return "<tr><td>" + item.name + "</td><td><span class=\"label label-info\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 }
 
-function ReadImage(file, index) {//file must be a Blob.
-	var reader = new FileReader();
-
-	reader.onload = function (e) {
-		$("#" + index)
-			.attr('src', e.target.result)
-			.width(150)
-			.height(200);
-		//Need to update items
-	};
+function DisplayPreview(file, index) {
+	document.getElementById("#" + index).innerHTML = "";
+	file.appendTo("#" + index);
+	
+	items[index].preview = "<div id=\"#" + count + "\">" + document.getElementById("#" + index).innerHTML + "</div>";
 
 	reader.readAsDataURL(file);
+}
+
+function DisplayFile(file)
+{
+	document.getElementById('ShowSpace').innerHTML = "";
+	file.appendTo('ShowSpace', function (err, elem) {
+		if (err) throw err // file failed to download or display in the DOM
+		console.log('New DOM node with the content', elem)
+	});
 }
