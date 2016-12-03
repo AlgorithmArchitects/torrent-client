@@ -9,6 +9,28 @@ function submitDownload(){
 function downloadTorrent(torrentId){
     client.add(torrentId, function (torrent) {
         console.log(torrent);
+        torrent.on('done', function(){
+            console.log('torrent finished downloading');
+            torrent.files.forEach(function(file){
+                file.getBlobURL(function (err, url) {
+                    if (err) return log(err.message);
+                    console.log(url);
+                     var a = document.createElement("a");
+                     document.body.appendChild(a);
+                     a.style = "display: none";
+                     a.href = url;
+                     a.download = file.name;
+                     a.click();
+                     window.URL.revokeObjectURL(url);
+                });
+            })
+        });
+        torrent.on('download', function (bytes) {
+            console.log('just downloaded: ' + bytes);
+            console.log('total downloaded: ' + torrent.downloaded);
+            console.log('download speed: ' + torrent.downloadSpeed);
+            console.log('progress: ' + torrent.progress);
+        });
         var file = torrent.files[0]
         AddToList(file.name, "in progress");
     });
