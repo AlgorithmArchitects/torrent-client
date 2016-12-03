@@ -34,7 +34,7 @@
             </div>
             <div class="panel-footer" style="display:none;">
                 <!--<a href="#" target="_blank" id="uri" style="float:left; display:none;">[Magnet URI]</a>-->
-                    <div class="progress">
+                    <div class="progress seeding">
                         <div id="upload-progress" class="progress-bar progress-bar-striped active" role="progressbar"
                              aria-valuemin="0" aria-valuemax="100" style="width:100%">
                         </div>
@@ -45,12 +45,14 @@
                 <button type="button" id="button_stop" class="btn" onclick='buttonStopPress()'>
                     <i class="fa fa-stop"></i>
                 </button>
+                <div class="seeding" style="display:inline-block;">
                 <!-- Magnet URI -->
-                <input id="uri" value=""/>
+                <input id="uri" value="" class="seeding"/>
                 <!-- Trigger -->
-                <button id="clip-btn" class="clip" data-clipboard-target="#uri">
-                    <img src="" alt="Copy URI">
+                <button id="clip-btn" class="clip" data-clipboard-target="#uri" class="seeding">
+                    <img src="" alt="Copy URI" class="seeding">
                 </button>
+                </div>
             </div>
         </div>
     </div>

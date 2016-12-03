@@ -68,12 +68,14 @@ function prettyBytes(num) {
 
 // Resume / Stop download
 function buttonPlayPress() {
+    $('.seeding').show();
     state = 'play';
     console.log("button play pressed, play was "+state);
 }
 
 function buttonStopPress(){
     state = 'stop';
+    $('.seeding').hide();
     console.log("button stop invoked.");
 }
 
