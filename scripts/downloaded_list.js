@@ -5,7 +5,7 @@ function AddToList(name, status)
 	var item = {
 		name: name,
 		status: status,
-		preview: "<img id=\"" + count + "\" src=\"assets/images/wait.png\" alt=\"\" />",
+		preview: "<img id=\"" + count + "\" src=\"assets/images/wait.png\" alt=\"\" style=\"max-height:25px\" />",
 		index: count
 	};
 	
