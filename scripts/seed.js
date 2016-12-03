@@ -12,7 +12,11 @@ client.on('error', function (err) {
     console.log(err)
 });
 var state = 'stop';
+
 function handleFileSelect(evt) {
+    if (client.torrents.length > 0){
+        client.remove(client.torrents[0].magnetURI);
+    }
     evt.stopPropagation();
     evt.preventDefault();
     //var files = evt.dataTransfer.files;
@@ -68,15 +72,21 @@ function prettyBytes(num) {
 
 // Resume / Stop download
 function buttonPlayPress() {
+    client.torrents.forEach(function(torrent){
+        console.log("Resuming torrent: " +torrent.infoHash);
+        torrent.resume();
+    });
     $('.seeding').show();
     state = 'play';
-    console.log("button play pressed, play was "+state);
 }
 
 function buttonStopPress(){
     state = 'stop';
     $('.seeding').hide();
-    console.log("button stop invoked.");
+    client.torrents.forEach(function(torrent){
+        console.log("Pausing torrent: " + torrent.infoHash);
+        torrent.pause();
+    });
 }
 
 // Setup the dnd listeners.
