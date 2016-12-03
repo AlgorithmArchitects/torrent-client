@@ -13,15 +13,18 @@ function downloadTorrent(torrentId){
             console.log('torrent finished downloading');
             torrent.files.forEach(function(file){
                 file.getBlobURL(function (err, url) {
-                    if (err) return log(err.message);
+                    if (err)
+					{
+						return log(err.message);
+					}
                     console.log(url);
-                     var a = document.createElement("a");
-                     document.body.appendChild(a);
-                     a.style = "display: none";
-                     a.href = url;
-                     a.download = file.name;
-                     a.click();
-                     window.URL.revokeObjectURL(url);
+                    var a = document.createElement("a");
+                    document.body.appendChild(a);
+                    a.style = "display: none";
+                    a.href = url;
+                    a.download = file.name;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
                 });
             })
         });
@@ -97,4 +100,11 @@ function DisplayFile(file)
 		if (err) throw err // file failed to download or display in the DOM
 		console.log('New DOM node with the content', elem)
 	});
+}
+
+function GetIndexFromName(file)
+{
+	for(var i = 0; i < count; i++)
+		if(items[i].name == file)
+			return i;
 }
