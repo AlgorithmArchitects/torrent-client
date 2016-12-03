@@ -10,7 +10,7 @@ function downloadTorrent(torrentId){
     client.add(torrentId, function (torrent) {
         console.log(torrent);
         var file = torrent.files[0]
-        AddToList(file, "in progress");
+        AddToList(file.name, "in progress");
     });
 }
 function AddToList(name, status)//A status of "Failed" will create a red item while a status of "Success" will create a green item.
