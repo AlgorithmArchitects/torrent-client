@@ -20,6 +20,7 @@ function downloadTorrent(torrentId){
 						return log(err.message);
 					}
 					ModifyStatus("Success", index);
+					DisplayPreview(file, index);
                     console.log(url);
                     var a = document.createElement("a");
                     document.body.appendChild(a);
@@ -47,7 +48,7 @@ function AddToList(name, status)//A status of "Failed" will create a red item wh
 	var item = {
 		name: name,
 		status: status,
-		preview: "<div id=\"#" + count + "Image\"><image src=\"assets/images/wait.png\" alt=\"\" style=\"max-height:25px\" /></div>",
+		preview: "<div id=\"Image" + count + "\"><image src=\"assets/images/wait.png\" alt=\"\" style=\"max-height:25px\" /></div>",
 		index: count
 	};
 	items.push(item);
@@ -76,13 +77,14 @@ function BuildHtmlString(item, index)
 }
 
 function DisplayPreview(file, index) {
-	document.getElementById("#" + index + "Image").innerHTML = "";
-	file.appendTo("#" + index, {autoplay: false}, function (err, elem) {
+	var node = document.getElementById("Image" + index);
+	document.getElementById("Image" + index).innerHTML = "";
+	file.appendTo(node, function (err, elem) {
 		if (err) console.log(err); // file failed to download or display in the DOM
 		else console.log('New DOM node with the content', elem);
 	});
 	
-	items[index].preview = "<div id=\"#" + count + "Image\">" + document.getElementById("#" + index + "Image").innerHTML + "</div>";
+	items[index].preview = "<div id=\"Image" + index + "\">" + document.getElementById("Image" + index).innerHTML + "</div>";
 }
 
 function ModifyStatus(status, index)
