@@ -1,5 +1,18 @@
 var items = [];
 var count = 0;
+var client = new WebTorrent();
+
+function submitDownload(){
+    console.log('submitted');
+    downloadTorrent($("#torrentlink").val());
+}
+function downloadTorrent(torrentId){
+    client.add(torrentId, function (torrent) {
+        console.log(torrent);
+        var file = torrent.files[0]
+        AddToList(file, "in progress");
+    });
+}
 function AddToList(name, status)
 {
 	var item = {
@@ -8,7 +21,6 @@ function AddToList(name, status)
 		preview: "<img id=\"" + count + "\" src=\"assets/images/wait.png\" alt=\"\" />",
 		index: count
 	};
-	
 	items.push(item);
 	document.getElementById("table_body").innerHTML += BuildHtmlString(item);
 	count++;
