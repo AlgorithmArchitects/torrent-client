@@ -3,8 +3,9 @@ var count = 0;
 var client = new WebTorrent();
 
 function submitDownload(){
-    console.log('submitted');
-    downloadTorrent($("#torrentlink").val());
+	var torrent = $("#torrentlink").val();
+	if (checkTorrent(torrent))
+    	downloadTorrent(torrent);
 }
 function downloadTorrent(torrentId){
     client.add(torrentId, function (torrent) {
@@ -102,4 +103,57 @@ function GetIndexFromName(file)
 	for(var i = 0; i < count; i++)
 		if(items[i].name == file)
 			return i;
+}
+
+function checkTorrent(torrentLink){
+	var torrentfield = document.getElementById("torrentlink");
+	var formctrl = document.getElementById('form-ctrl');
+	var alertbox = document.getElementById("error-alert");
+	client.add(torrentLink, function (torrent) {
+		client.on('torrent', function (torrent) {})
+	});
+	if (client.get(torrentLink)){
+		// Succes msgs:
+		alertbox.style.display="none";
+		formctrl.className = "input-group form-group has-success";
+		formctrl.childNodes[5].className = 'glyphicon glyphicon-ok form-control-feedback'
+		return checkHTMLStorage(setHtmlStorage,'torrentlink',torrentLink);
+	}
+	else{
+		// Error Messages:
+		// Alert
+		alertbox.innerHTML = "<strong> Invalid Torrent Link</strong>";
+		alertbox.style.display="inline-block";
+		// Torrent field
+		torrentfield.focus();
+		formctrl.className = "input-group form-group has-error";
+		formctrl.childNodes[5].className = 'glyphicon glyphicon-remove form-control-feedback'
+		return false;
+	}
+}
+
+function checkHTMLStorage(f, key, value){
+	if (typeof(Storage) !== "undefined") {
+		// Code for localStorage/sessionStorage.
+		if (value != ""){
+			f(key, value);
+		}
+		else{
+			f(key);
+		}
+		return true;
+
+	} else {
+		alert("No HTML localstorage is supported!");
+		return false;
+		// TODO: use cookies instead?
+	}
+}
+// Looks pretty useless, but at least it works with checkHTMLStorage...
+function setHtmlStorage(key, value){
+	localStorage.setItem(key, value);
+}
+// Looks pretty useless, but at least it works with checkHTMLStorage...
+function getHtmlStorage(key){
+	return localStorage.getItem(key);
 }

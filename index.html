@@ -35,10 +35,12 @@
       </div>
     </div>
 	<center>
+		<div style="display:none;" id="error-alert" class="alert alert-danger col-lg-6 col-sm-12"></div>
 	<div id="download-form" class="form-horizontal" style="max-width: 90%" name="download-form">
-		<div style="margin-bottom: 25px" class="input-group">
+		<div style="margin-bottom: 25px" class="input-group form-group" id="form-ctrl">
 			<span class="input-group-addon"><i class="glyphicon glyphicon-download-alt"></i></span>
 			<input type="text" placeholder="Torrent/Magnet URI" id="torrentlink" name="torrentlink" class="form-control">
+			<span class="glyphicon form-control-feedback"></span>
 		</div>
 		<div style="margin-top:10px" class="form-group">
 			<div class="col-sm-12 btn-group">
