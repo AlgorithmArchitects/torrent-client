@@ -11,24 +11,7 @@ client.on('error', function (err) {
     client = new WebTorrent();
     console.log(err)
 });
-
-
-function setTorrentLink(){
-    var torrentLink = document.forms["download-form"]["torrentlink"].value;
-    client.add(torrentLink, function (torrent) {
-        client.on('torrent', function (torrent) {})
-    });
-    if (client.get(torrentLink)){
-        return checkHTMLStorage(setHtmlStorage,'torrent-dl',torrentLink);
-    }
-    else{
-        document.getElementById("error-alert").innerHTML = "<strong> Invalid Torrent Link</strong>";
-        document.getElementById("error-alert").style.display="inline-block";
-        document.forms["download-form"]["torrentlink"].focus();
-        return false;
-    }
-}
-
+var state = 'stop';
 function handleFileSelect(evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -53,16 +36,15 @@ function handleFileSelect(evt) {
         document.getElementById('uri').value = torrent.magnetURI;
         document.getElementById('uri').style.display = "inline-block";
         document.getElementById('clip-btn').style.display = "inline-block";
+        // Show footers
+        $('.panel-footer').show();
         // Setup connection updates
         setInterval(onUpload, 300);
 
         function onUpload(){
-            // Peers
-            document.getElementById("num-peers")
-                .innerHTML = '# Peers: ' + torrent.numPeers;
-            // Upload speed
-            document.getElementById("upload-speed")
-                .innerHTML = 'Upload Speed: ' + prettyBytes(torrent.uploadSpeed) + '/s'
+            // Progress bar
+            document.getElementById("upload-progress")
+                .innerHTML = prettyBytes(torrent.uploadSpeed) + '/s' + ' to ' + torrent.numPeers + ' Peers.';
         }
     });
 }
@@ -84,6 +66,16 @@ function prettyBytes(num) {
     return (neg ? '-' : '') + num + ' ' + unit
 }
 
+// Resume / Stop download
+function buttonPlayPress() {
+    state = 'play';
+    console.log("button play pressed, play was "+state);
+}
+
+function buttonStopPress(){
+    state = 'stop';
+    console.log("button stop invoked.");
+}
 
 // Setup the dnd listeners.
 var dropZone = document.getElementById('drop_zone');
