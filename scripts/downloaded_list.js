@@ -48,7 +48,10 @@ function BuildHtmlString(item)
 
 function DisplayPreview(file, index) {
 	document.getElementById("#" + index).innerHTML = "";
-	file.appendTo("#" + index);
+	file.appendTo("#" + index, {autoplay: false}, function (err, elem) {
+		if (err) throw err // file failed to download or display in the DOM
+		console.log('New DOM node with the content', elem)
+	});
 	
 	items[index].preview = "<div id=\"#" + count + "\">" + document.getElementById("#" + index).innerHTML + "</div>";
 
