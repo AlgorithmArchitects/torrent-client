@@ -13,10 +13,13 @@ function downloadTorrent(torrentId){
             console.log('torrent finished downloading');
             torrent.files.forEach(function(file){
                 file.getBlobURL(function (err, url) {
+					var index = GetIndexFromName(file.name)
                     if (err)
 					{
+						ModifyStatus("Failed", index);
 						return log(err.message);
 					}
+					ModifyStatus("Success", index);
                     console.log(url);
                     var a = document.createElement("a");
                     document.body.appendChild(a);
