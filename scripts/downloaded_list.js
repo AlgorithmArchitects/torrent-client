@@ -1,6 +1,6 @@
 var items = [];
 var count = 0;
-function AddToList(name, status)
+function AddToList(name, status)//A status of "Failed" will create a red item while a status of "Success" will create a green item.
 {
 	var item = {
 		name: name,
