@@ -18,11 +18,11 @@ function AddToList(name, status)//A status of "Failed" will create a red item wh
 	var item = {
 		name: name,
 		status: status,
-		preview: "<div id=\"#" + count + "\"><image src=\"assets/images/wait.png\" alt=\"\" style=\"max-height:25px\" /></div>",
+		preview: "<div id=\"#" + count + "Image\"><image src=\"assets/images/wait.png\" alt=\"\" style=\"max-height:25px\" /></div>",
 		index: count
 	};
 	items.push(item);
-	document.getElementById("table_body").innerHTML += BuildHtmlString(item);
+	document.getElementById("table_body").innerHTML += BuildHtmlString(item, count);
 	count++;
 	return count - 1;
 }
@@ -32,30 +32,39 @@ function RefreshList()
 	var list = ""
 	for(var i = 0; i < count; i++)
 	{
-		list += BuildHtmlString(items[i]);
+		list += BuildHtmlString(items[i], count);
 	}
 	document.getElementById("table_body").innerHTML = list;
 }
 
-function BuildHtmlString(item)
+function BuildHtmlString(item, index)
 {
 	if(item.status == "Failed")
-		return "<tr><td>" + item.name + "</td><td><span class=\"label label-danger\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+		return "<tr><td>" + item.name + "</td><td><span class=\"label label-danger\" id = \"#" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 	if(item.status == "Success")
-		return "<tr><td>" + item.name + "</td><td><span class=\"label label-success\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
-	return "<tr><td>" + item.name + "</td><td><span class=\"label label-info\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+		return "<tr><td>" + item.name + "</td><td><span class=\"label label-success\" id = \"#" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+	return "<tr><td>" + item.name + "</td><td><span class=\"label label-info\" id = \"#" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 }
 
 function DisplayPreview(file, index) {
-	document.getElementById("#" + index).innerHTML = "";
+	document.getElementById("#" + index + "Image").innerHTML = "";
 	file.appendTo("#" + index, {autoplay: false}, function (err, elem) {
-		if (err) throw err // file failed to download or display in the DOM
-		console.log('New DOM node with the content', elem)
+		if (err) console.log(err); // file failed to download or display in the DOM
+		else console.log('New DOM node with the content', elem);
 	});
 	
-	items[index].preview = "<div id=\"#" + count + "\">" + document.getElementById("#" + index).innerHTML + "</div>";
+	items[index].preview = "<div id=\"#" + count + "Image\">" + document.getElementById("#" + index + "Image").innerHTML + "</div>";
+}
 
-	reader.readAsDataURL(file);
+function ModifyStatus(status, index)
+{
+	if(status == "Failed")
+		document.getElementById("#" + index + "Status").parentNode.innerHTML = "<span class=\"label label-danger\" id = \"#" + index +"status\">" + status + "</span>";
+	else if(status == "Success")
+		document.getElementById("#" + index + "Status").parentNode.innerHTML = "<span class=\"label label-success\" id = \"#" + index +"status\">" + status + "</span>";
+	else
+		document.getElementById("#" + index + "Status").parentNode.innerHTML = "<span class=\"label label-info\" id = \"#" + index +"status\">" + status + "</span>";
+	items[index].status = status;
 }
 
 function DisplayFile(file)
