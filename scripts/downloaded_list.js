@@ -20,7 +20,6 @@ function downloadTorrent(torrentId){
 						return log(err.message);
 					}
 					ModifyStatus("Success", index);
-					DisplayPreview(file, index);
                     console.log(url);
                     var a = document.createElement("a");
                     document.body.appendChild(a);
@@ -39,7 +38,8 @@ function downloadTorrent(torrentId){
             console.log('progress: ' + torrent.progress);
         });
         torrent.files.forEach(function(file){
-            AddToList(file.name, "in progress");
+            var index = AddToList(file.name, "in progress");
+			DisplayPreview(file, index);
         });
     });
 }
@@ -48,23 +48,13 @@ function AddToList(name, status)//A status of "Failed" will create a red item wh
 	var item = {
 		name: name,
 		status: status,
-		preview: "<div id=\"Image" + count + "\"><image src=\"assets/images/wait.png\" alt=\"\" style=\"max-height:25px\" /></div>",
+		preview: "<div id=\"Image" + count + "\"></div>",
 		index: count
 	};
 	items.push(item);
 	document.getElementById("table_body").innerHTML += BuildHtmlString(item, count);
 	count++;
 	return count - 1;
-}
-
-function RefreshList()
-{
-	var list = ""
-	for(var i = 0; i < count; i++)
-	{
-		list += BuildHtmlString(items[i], count);
-	}
-	document.getElementById("table_body").innerHTML = list;
 }
 
 function BuildHtmlString(item, index)
@@ -76,7 +66,7 @@ function BuildHtmlString(item, index)
 	return "<tr><td>" + item.name + "</td><td><span class=\"label label-info\" id = \"#" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 }
 
-function DisplayPreview(file, index) {
+function DisplayPreview(file, index) {//For some reason I can't contain size propperly
 	var node = document.getElementById("Image" + index);
 	document.getElementById("Image" + index).innerHTML = "";
 	file.appendTo(node, function (err, elem) {
@@ -84,7 +74,6 @@ function DisplayPreview(file, index) {
 		else console.log('New DOM node with the content', elem);
 	});
 	
-	items[index].preview = "<div id=\"Image" + index + "\">" + document.getElementById("Image" + index).innerHTML + "</div>";
 }
 
 function ModifyStatus(status, index)
@@ -101,6 +90,7 @@ function ModifyStatus(status, index)
 function DisplayFile(file)
 {
 	document.getElementById('ShowSpace').innerHTML = "";
+	document.getElementById('ShowSpace').childNodes = [];
 	file.appendTo('ShowSpace', function (err, elem) {
 		if (err) throw err // file failed to download or display in the DOM
 		console.log('New DOM node with the content', elem)
