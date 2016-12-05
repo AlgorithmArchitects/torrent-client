@@ -21,14 +21,8 @@ function downloadTorrent(torrentId){
 						return log(err.message);
 					}
 					ModifyStatus("Success", index);
-                    console.log(url);
-                    var a = document.createElement("a");
-                    document.body.appendChild(a);
-                    a.style = "display: none";
-                    a.href = url;
-                    a.download = file.name;
-                    a.click();
-                    window.URL.revokeObjectURL(url);
+					document.getElementById(index+"Name").href = url;
+					document.getElementById(index+"Name").className = "";
                 });
             })
         });
@@ -62,10 +56,10 @@ function AddToList(name, status)//A status of "Failed" will create a red item wh
 function BuildHtmlString(item, index)
 {
 	if(item.status == "Failed")
-		return "<tr><td>" + item.name + "</td><td><span class=\"label label-danger\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+		return "<tr><td><a id=\"" + index + "Name\" class=\"inactiveLink\">" + item.name + "</a><td><span class=\"label label-danger\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 	if(item.status == "Success")
-		return "<tr><td>" + item.name + "</td><td><span class=\"label label-success\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
-	return "<tr><td>" + item.name + "</td><td><span class=\"label label-info\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+		return "<tr><td><a id=\"" + index + "Name\" class=\"inactiveLink\">" + item.name + "</a><td><span class=\"label label-success\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+	return "<tr><td><a id=\"" + index + "Name\" class=\"inactiveLink\">" + item.name + "</a><td><span class=\"label label-info\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 }
 
 function DisplayPreview(file, index) {//For some reason I can't contain size propperly
