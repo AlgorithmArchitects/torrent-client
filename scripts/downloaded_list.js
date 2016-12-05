@@ -32,15 +32,16 @@ function downloadTorrent(torrentId){
                 });
             })
         });
-        torrent.on('download', function (bytes) {
-            console.log('just downloaded: ' + bytes);
-            console.log('total downloaded: ' + torrent.downloaded);
-            console.log('download speed: ' + torrent.downloadSpeed);
-            console.log('progress: ' + torrent.progress);
-        });
         torrent.files.forEach(function(file){
-            var index = AddToList(file.name, "in progress");
+            var index = AddToList(file.name, "In progress: 0%");
 			DisplayPreview(file, index);
+        });
+        torrent.on('download', function (bytes) {
+			var progress = (torrent.progress * 100).toFixed(2).toString() + "%";
+			console.log(progress);
+        	torrent.files.forEach(function(file){
+				ModifyStatus("In progress: " + progress, GetIndexFromName(file.name));
+        	});
         });
     });
 }
@@ -61,10 +62,10 @@ function AddToList(name, status)//A status of "Failed" will create a red item wh
 function BuildHtmlString(item, index)
 {
 	if(item.status == "Failed")
-		return "<tr><td>" + item.name + "</td><td><span class=\"label label-danger\" id = \"#" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+		return "<tr><td>" + item.name + "</td><td><span class=\"label label-danger\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 	if(item.status == "Success")
-		return "<tr><td>" + item.name + "</td><td><span class=\"label label-success\" id = \"#" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
-	return "<tr><td>" + item.name + "</td><td><span class=\"label label-info\" id = \"#" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+		return "<tr><td>" + item.name + "</td><td><span class=\"label label-success\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+	return "<tr><td>" + item.name + "</td><td><span class=\"label label-info\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 }
 
 function DisplayPreview(file, index) {//For some reason I can't contain size propperly
@@ -80,11 +81,11 @@ function DisplayPreview(file, index) {//For some reason I can't contain size pro
 function ModifyStatus(status, index)
 {
 	if(status == "Failed")
-		document.getElementById("#" + index + "Status").parentNode.innerHTML = "<span class=\"label label-danger\" id = \"#" + index +"status\">" + status + "</span>";
+		document.getElementById(index + "Status").parentNode.innerHTML = "<span class=\"label label-danger\" id = \"" + index +"Status\">" + status + "</span>";
 	else if(status == "Success")
-		document.getElementById("#" + index + "Status").parentNode.innerHTML = "<span class=\"label label-success\" id = \"#" + index +"status\">" + status + "</span>";
+		document.getElementById(index + "Status").parentNode.innerHTML = "<span class=\"label label-success\" id = \"" + index +"Status\">" + status + "</span>";
 	else
-		document.getElementById("#" + index + "Status").parentNode.innerHTML = "<span class=\"label label-info\" id = \"#" + index +"status\">" + status + "</span>";
+		document.getElementById(index + "Status").parentNode.innerHTML = "<span class=\"label label-info\" id = \"" + index +"Status\">" + status + "</span>";
 	items[index].status = status;
 }
 
