@@ -64,12 +64,8 @@ function BuildHtmlString(item, index)
 
 function DisplayPreview(file, index) {//For some reason I can't contain size propperly
 	var node = document.getElementById("Image" + index);
-	document.getElementById("Image" + index).innerHTML = "";
-	file.appendTo(node, function (err, elem) {
-		if (err) console.log(err); // file failed to download or display in the DOM
-		else console.log('New DOM node with the content', elem);
-	});
-	
+	document.getElementById("Image" + index).innerHTML = "<button type = \"button\" id = \"button" + index + "\">Preview</button>";
+	document.getElementById("button" + index).onclick = function() {DisplayFile(file)};
 }
 
 function ModifyStatus(status, index)
@@ -85,12 +81,13 @@ function ModifyStatus(status, index)
 
 function DisplayFile(file)
 {
-	document.getElementById('ShowSpace').innerHTML = "";
-	document.getElementById('ShowSpace').childNodes = [];
-	file.appendTo('ShowSpace', function (err, elem) {
+	var elm = document.getElementById('ShowSpace');
+	elm.childNodes = [];
+	file.appendTo(elm, function (err, elem) {
 		if (err) throw err // file failed to download or display in the DOM
 		console.log('New DOM node with the content', elem)
 	});
+	elm.childNodes[0].style.maxHeight = "250px";
 }
 
 function GetIndexFromName(file)
