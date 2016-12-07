@@ -90,7 +90,7 @@ function ModifyStatus(status, index)
 
 function DisplayFile(file)
 {
-	node = document.getElementById("button" + 0);
+    console.log(file);
 	var elm = document.getElementById('ShowSpace');
 	if(elm.firstChild)
 		elm.removeChild(elm.firstChild);
@@ -98,7 +98,7 @@ function DisplayFile(file)
 		if (err) throw err // file failed to download or display in the DOM
 		console.log('New DOM node with the content', elem)
 	});
-	elm.childNodes[0].style.maxHeight = "250px";
+	elm.childNodes[0].style.width = "100%";
 }
 
 function GetIndexFromName(file)
