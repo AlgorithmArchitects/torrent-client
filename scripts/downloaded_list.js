@@ -64,8 +64,8 @@ function BuildHtmlString(item, index)
 
 function DisplayPreview(file, index) {//For some reason I can't contain size propperly
 	var node = document.getElementById("Image" + index);
-	document.getElementById("Image" + index).innerHTML = "<button type = \"button\" id = \"button" + index + "\">Preview</button>";
-	document.getElementById("button" + index).onclick = function() {DisplayFile(file)};
+	node.innerHTML = "<button type = \"button\" id = \"button" + index + "\">Preview</button>";
+	document.getElementById("button" + index).onclick = function() {console.log(file);DisplayFile(file);};
 }
 
 function ModifyStatus(status, index)
@@ -81,6 +81,7 @@ function ModifyStatus(status, index)
 
 function DisplayFile(file)
 {
+    console.log(file);
 	var elm = document.getElementById('ShowSpace');
 	if(elm.firstChild)
 		elm.removeChild(elm.firstChild);
@@ -88,7 +89,7 @@ function DisplayFile(file)
 		if (err) throw err // file failed to download or display in the DOM
 		console.log('New DOM node with the content', elem)
 	});
-	elm.childNodes[0].style.maxHeight = "250px";
+	elm.childNodes[0].style.width = "100%";
 }
 
 function GetIndexFromName(file)
