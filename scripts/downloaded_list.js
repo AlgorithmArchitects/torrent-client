@@ -58,8 +58,8 @@ function BuildHtmlString(item, index)
 	if(item.status == "Failed")
 		return "<tr><td><a id=\"" + index + "Name\" class=\"inactiveLink\">" + item.name + "</a><td><span class=\"label label-danger\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 	if(item.status == "Success")
-		return "<tr><td><a id=\"" + index + "Name\" class=\"inactiveLink\">" + item.name + "</a><td><span class=\"label label-success\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
-	return "<tr><td><a id=\"" + index + "Name\" class=\"inactiveLink\">" + item.name + "</a><td><span class=\"label label-info\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+		return "<tr><td><a id=\"" + index + "Name\" target=\"_blank\" class=\"inactiveLink\">" + item.name + "</a><td><span class=\"label label-success\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
+	return "<tr><td><a id=\"" + index + "Name\" target=\"_blank\" class=\"inactiveLink\">" + item.name + "</a><td><span class=\"label label-info\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 }
 
 function DisplayPreview(file, index) {//For some reason I can't contain size propperly
