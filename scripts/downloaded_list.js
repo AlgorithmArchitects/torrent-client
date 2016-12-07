@@ -4,8 +4,26 @@ var client = new WebTorrent();
 
 function submitDownload(){
 	var torrent = $("#torrentlink").val();
-	if (checkTorrent(torrent))
-    	downloadTorrent(torrent);
+	var validComplete = new Promise(function(resolve, reject) {
+		checkTorrent(torrent,resolve,reject);
+	});
+
+	validComplete.then(function(valid) {
+		console.log(valid);
+		if (valid){
+			var popupBox = $('#headingOne');
+			console.log(popupBox);
+			console.log(popupBox.filter('div')[0].getAttribute('aria-expanded'));
+			if (popupBox.filter('div')[0].getAttribute('aria-expanded')){
+				console.log("clicked called");
+				popupBox.click();
+			}
+			downloadTorrent(torrent);
+		}
+	}, function(err) {
+		console.log(err);
+	});
+
 }
 function downloadTorrent(torrentId){
     client.add(torrentId, function (torrent) {
@@ -99,7 +117,7 @@ function GetIndexFromName(file)
 			return i;
 }
 
-function checkTorrent(torrentLink){
+function checkTorrent(torrentLink,resolve,reject){
 	var torrentfield = document.getElementById("torrentlink");
 	var formctrl = document.getElementById('form-ctrl');
 	var alertbox = document.getElementById("error-alert");
@@ -111,7 +129,8 @@ function checkTorrent(torrentLink){
 		alertbox.style.display="none";
 		formctrl.className = "input-group form-group has-success";
 		formctrl.childNodes[5].className = 'glyphicon glyphicon-ok form-control-feedback'
-		return checkHTMLStorage(setHtmlStorage,'torrentlink',torrentLink);
+		resolve(true);
+		//return checkHTMLStorage(setHtmlStorage,'torrentlink',torrentLink);
 	}
 	else{
 		// Error Messages:
@@ -122,7 +141,7 @@ function checkTorrent(torrentLink){
 		torrentfield.focus();
 		formctrl.className = "input-group form-group has-error";
 		formctrl.childNodes[5].className = 'glyphicon glyphicon-remove form-control-feedback'
-		return false;
+		reject("Invalid magnet URI: " + torrentfield.val());
 	}
 }
 
