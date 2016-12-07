@@ -82,7 +82,8 @@ function ModifyStatus(status, index)
 function DisplayFile(file)
 {
 	var elm = document.getElementById('ShowSpace');
-	elm.childNodes = [];
+	if(elm.firstChild)
+		elm.removeChild(elm.firstChild);
 	file.appendTo(elm, function (err, elem) {
 		if (err) throw err // file failed to download or display in the DOM
 		console.log('New DOM node with the content', elem)
