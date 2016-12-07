@@ -1,6 +1,7 @@
 var items = [];
 var count = 0;
 var client = new WebTorrent();
+var currentPreviewIndex = -1;
 
 function submitDownload(){
 	var torrent = $("#torrentlink").val();
@@ -72,7 +73,8 @@ function SetupDisplayPreviewButtons() {
 		node.onclick = function(evt) {
 			var num = evt.srcElement.id;
 			num = num.substring(6, num.length);
-			DisplayFile(items[parseInt(num)].file)
+			if(num != currentPreviewIndex)
+				DisplayFile(items[parseInt(num)].file)
 		};
 	}
 }
