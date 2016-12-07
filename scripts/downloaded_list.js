@@ -28,8 +28,9 @@ function downloadTorrent(torrentId){
         });
         torrent.files.forEach(function(file){
             var index = AddToList(file.name, "In progress: 0%");
-			DisplayPreview(file, index);
+			items[index].file = file;
         });
+		SetupDisplayPreviewButtons();
         torrent.on('download', function (bytes) {
 			var progress = (torrent.progress * 100).toFixed(2).toString() + "%";
 			console.log(progress);
@@ -44,11 +45,13 @@ function AddToList(name, status)//A status of "Failed" will create a red item wh
 	var item = {
 		name: name,
 		status: status,
-		preview: "<div id=\"Image" + count + "\"></div>",
-		index: count
+		preview: "<div id=\"Image" + count + "\"><button type = \"button\" id = \"button" + count + "\">Preview</button></div>",
+		index: count,
+		file: null
 	};
 	items.push(item);
-	document.getElementById("table_body").innerHTML += BuildHtmlString(item, count);
+	var table = document.getElementById("table_body");
+	table.innerHTML += BuildHtmlString(item, count);
 	count++;
 	return count - 1;
 }
@@ -62,10 +65,16 @@ function BuildHtmlString(item, index)
 	return "<tr><td><a id=\"" + index + "Name\" target=\"_blank\" class=\"inactiveLink\">" + item.name + "</a><td><span class=\"label label-info\" id = \"" + index +"Status\">" + item.status + "</span></td><td>" + item.preview + "</td></tr>\n";
 }
 
-function DisplayPreview(file, index) {//For some reason I can't contain size propperly
-	var node = document.getElementById("Image" + index);
-	document.getElementById("Image" + index).innerHTML = "<button type = \"button\" id = \"button" + index + "\">Preview</button>";
-	document.getElementById("button" + index).onclick = function() {DisplayFile(file)};
+function SetupDisplayPreviewButtons() {
+	for(var i = 0; i < count; i++)
+	{
+		node = document.getElementById("button" + i);
+		node.onclick = function(evt) {
+			var num = evt.srcElement.id;
+			num = num.substring(6, num.length);
+			DisplayFile(items[parseInt(num)].file)
+		};
+	}
 }
 
 function ModifyStatus(status, index)
@@ -81,6 +90,7 @@ function ModifyStatus(status, index)
 
 function DisplayFile(file)
 {
+	node = document.getElementById("button" + 0);
 	var elm = document.getElementById('ShowSpace');
 	if(elm.firstChild)
 		elm.removeChild(elm.firstChild);
