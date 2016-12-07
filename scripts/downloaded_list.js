@@ -2,6 +2,7 @@ var items = [];
 var count = 0;
 var client = new WebTorrent();
 
+
 function submitDownload(){
 	var torrent = $("#torrentlink").val();
 	var validComplete = new Promise(function(resolve, reject) {
@@ -11,13 +12,7 @@ function submitDownload(){
 	validComplete.then(function(valid) {
 		console.log(valid);
 		if (valid){
-			var popupBox = $('#headingOne');
-			console.log(popupBox);
-			console.log(popupBox.filter('div')[0].getAttribute('aria-expanded'));
-			if (popupBox.filter('div')[0].getAttribute('aria-expanded')){
-				console.log("clicked called");
-				popupBox.click();
-			}
+			$('.collapse').collapse('show');
 			downloadTorrent(torrent);
 		}
 	}, function(err) {
